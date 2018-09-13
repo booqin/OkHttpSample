@@ -1,0 +1,14 @@
+@startuml
+OkHttpClient -> RealCall:newRealCall
+activate RealCall
+
+RealCall -> RealCall:execute
+RealCall -> RealInterceptorChain:proceed
+RealInterceptorChain -> XXXInterceptor:intercept
+XXXInterceptor -> RealInterceptorChain:proceed
+RealInterceptorChain -> CallServerInterceptor:intercept
+CallServerInterceptor -> Response
+RealCall <-- Response
+
+deactivate RealCall
+@enduml
