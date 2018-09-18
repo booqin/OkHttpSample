@@ -1,0 +1,34 @@
+@startuml
+
+'abstract class AbstractList
+'abstract AbstractCollection
+
+'List <|-- AbstractList
+'Collection <|-- AbstractCollection
+
+'Collection <|- List
+'AbstractCollection <|- AbstractList
+'AbstractList <|-- ArrayList
+
+'class ArrayList {
+'Object[] elementData
+'size()
+'}
+'
+'enum TimeUnit {
+'DAYS
+'HOURS
+'MINUTES
+'}
+
+interface HttpCodec
+HttpCodec <|-- Http2Codec
+
+class Http2Codec {
+StreamAllocation streamAllocation
+Http2Connection connection
+Http2Stream stream
+}
+
+
+@enduml

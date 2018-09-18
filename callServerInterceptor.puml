@@ -1,0 +1,19 @@
+@startuml
+CallServerInterceptor -> Http2Codec:writeRequestHeaders
+Http2Codec -> Http2Connection:newStream
+Http2Connection -> Http2Writer:synStream
+Http2Writer -> Sink:write
+Sink -> Socket
+CallServerInterceptor -> Sink:write
+
+RealConnection -> Http2Connection:start()
+Http2Connection -> ReaderRunnable:execute()
+ReaderRunnable -> Http2Read:nextFrame()
+Http2Read -> Http2Connection:handle
+Http2Connection -> Http2Stream:receiveXXX()
+Http2Stream -> Source:read()
+Source -> Socket
+
+
+
+@enduml

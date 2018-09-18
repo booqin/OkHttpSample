@@ -8,7 +8,9 @@ RealInterceptorChain -> XXXInterceptor:intercept
 XXXInterceptor -> RealInterceptorChain:proceed
 RealInterceptorChain -> CallServerInterceptor:intercept
 CallServerInterceptor -> Response
-RealCall <-- Response
+RealInterceptorChain <-- Response
+XXXInterceptor <-- RealInterceptorChain
+RealCall <-- XXXInterceptor
 
 deactivate RealCall
 @enduml

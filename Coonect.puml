@@ -1,0 +1,56 @@
+@startuml
+
+'abstract class AbstractList
+'abstract AbstractCollection
+'interface List
+'interface Collection
+'
+'List <|-- AbstractList
+'Collection <|-- AbstractCollection
+'
+'Collection <|- List
+'AbstractCollection <|- AbstractList
+'AbstractList <|-- ArrayList
+'
+'class ArrayList {
+'Object[] elementData
+'size()
+'}
+'
+'enum TimeUnit {
+'DAYS
+'HOURS
+'MINUTES
+'}
+
+class OkHttpClient{
+ConnectionPool connections
+}
+
+class ConnectionPool{
+Executor executor
+Deque<RealConnection> connections
+RouteDatabase routeDatabase
+}
+
+class RealConnection{
+Http2Connection http2Connection;
+BufferedSource source;
+BufferedSink sink;
+List<Reference<StreamAllocation>> allocations
+}
+
+class StreamAllocation{
+ConnectionPool connectionPool
+RealConnection connection
+HttpCodec codec
+findConnection(int connectTimeout, int readTimeout, int writeTimeout, int pingIntervalMillis, boolean connectionRetryEnabled)
+}
+
+
+
+OkHttpClient -> ConnectionPool
+ConnectionPool -> RealConnection
+RealConnection <- StreamAllocation
+
+@enduml
