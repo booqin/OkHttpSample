@@ -21,7 +21,16 @@
 'MINUTES
 '}
 
-interface HttpCodec
+interface HttpCodec{
+    int DISCARD_STREAM_TIMEOUT_MILLIS = 100;
+    Sink createRequestBody(Request var1, long var2);
+    void writeRequestHeaders(Request var1) throws IOException;
+    void flushRequest() throws IOException;
+    void finishRequest() throws IOException;
+    Builder readResponseHeaders(boolean var1) throws IOException;
+    ResponseBody openResponseBody(Response var1) throws IOException;
+    void cancel();
+}
 HttpCodec <|-- Http2Codec
 
 class Http2Codec {
