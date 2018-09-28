@@ -1,0 +1,22 @@
+@startuml
+Cache -> DiskLruCache:get()
+
+activate DiskLruCache
+DiskLruCache -> DiskLruCache:initialize
+DiskLruCache -> JournalFile:read
+JournalFile -> DiskLruCache.Entry
+DiskLruCache <-- DiskLruCache.Entry
+DiskLruCache -> LinkedHashMap:put()
+deactivate DiskLruCache
+
+DiskLruCache -> LinkedHashMap:get()
+LinkedHashMap -> DiskLruCache.Entry
+DiskLruCache <-- DiskLruCache.Entry
+DiskLruCache -> Snapshot
+Cache <-- Snapshot
+Cache -> Cache.Entry:response()
+Cache.Entry -> Response
+Response -> CacheResponseBody
+Cache <-- Response
+
+@enduml

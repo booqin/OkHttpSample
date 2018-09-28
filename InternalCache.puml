@@ -1,0 +1,73 @@
+@startuml
+
+'abstract class AbstractList
+'abstract AbstractCollection
+'interface List
+'interface Collection
+'
+'List <|-- AbstractList
+'Collection <|-- AbstractCollection
+'
+'Collection <|- List
+'AbstractCollection <|- AbstractList
+'AbstractList <|-- ArrayList
+'
+'class ArrayList {
+'Object[] elementData
+'size()
+'}
+'
+'enum TimeUnit {
+'DAYS
+'HOURS
+'MINUTES
+'}
+
+interface InternalCache {
+Response get(Request request)
+CacheRequest put(Response response)
+void remove(Request request)
+void update(Response cached, Response network)
+void trackConditionalCacheHit()
+void trackResponse(CacheStrategy cacheStrategy)
+}
+
+class Cache{
+    final InternalCache internalCache;
+    final DiskLruCache cache;
+    int writeSuccessCount;
+    int writeAbortCount;
+    private int networkCount;
+    private int hitCount;
+    private int requestCount;
+}
+
+class Entry{
+
+String url;
+Headers varyHeaders;
+String requestMethod;
+Protocol protocol;
+int code;
+String message;
+Headers responseHeaders;
+@Nullable Handshake handshake;
+long sentRequestMillis;
+long receivedResponseMillis;
+}
+
+interface CacheRequest{
+    Sink body() throws IOException;
+    void abort();
+}
+
+class CacheRequestImpl{
+final Editor editor;
+Sink cacheOut;
+Sink body;
+}
+
+CacheRequest <|-- CacheRequestImpl
+
+
+@enduml
